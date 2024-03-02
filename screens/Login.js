@@ -3,19 +3,44 @@ import React, { useState } from 'react'
 import { useNavigation } from '@react-navigation/native'
 import FormInput from '../components/FormInput'
 import FormButton from '../components/FormButton'
+import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 
 const Login = () => {
     const navigation = useNavigation();
-    const [userName, setUserName] = useState('');
+    const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
 
     const handleLogin = () => {
-        if (userName === 'nithya' && password === 'password') {
-            navigation.navigate("Home", { userName })
-        } else {
-            setError('Invalid username or password');
+        if (validateInputs()) {
+            const auth = getAuth();
+            signInWithEmailAndPassword(auth, email, password)
+                .then((userCredential) => {
+                    // Signed in 
+                    const user = userCredential.user;
+                    console.log(user.displayName);
+                    navigation.navigate("Home", {name: user.displayName} )
+                })
+                .catch((error) => {
+                    if (error.code === "auth/invalid-email") {
+                        setError('Invalid email or password');
+                    }
+                });
         }
+    }
+
+    const validateInputs = () => {
+        if (!password) {
+            setError('Password is required');
+            return false;
+        }
+
+        if (!email) {
+            setError('Email is required');
+            return false;
+        }
+
+        return true;
     }
 
     const handleSign = () => {
@@ -32,8 +57,8 @@ const Login = () => {
             <Text style={styles.appLabel}>React Social</Text>
             <FormInput
                 placeholder='Email'
-                value={userName}
-                onChangeText={(text) => setUserName(text)}
+                value={email}
+                onChangeText={(text) => setEmail(text)}
                 keyboardType="email-address"
                 autoCapitalize='none'
             />

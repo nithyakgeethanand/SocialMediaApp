@@ -3,6 +3,8 @@ import React, { useState } from 'react'
 import { useNavigation } from '@react-navigation/native'
 import FormInput from '../components/FormInput'
 import FormButton from '../components/FormButton'
+import { getAuth, createUserWithEmailAndPassword, updateProfile  } from "firebase/auth";
+import { app } from '../firebaseConfig';
 
 const SignUp = () => {
     const navigation = useNavigation();
@@ -12,16 +14,32 @@ const SignUp = () => {
     const [confirmPassword, setConfirmPassword] = useState('');
     const [error, setError] = useState('');
 
-    const handleSignUp = () => {
+    const handleSignUp = async () => {
         if (validateInputs()) {
-            navigation.navigate("Home", { name })
+            try {
+                // Create user with email and password
+                const auth = getAuth(app);
+                const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+
+                // Update user profiled
+                const user = userCredential.user;
+                updateProfile(user, {
+                    displayName: name, 
+                    //photoURL: "https://example.com/jane-q-user/profile.jpg"
+                  }).then(() => {
+                    console.log("User profile updated");
+                    // Navigate to home page
+                    navigation.navigate("Home", {name : user.displayName});
+                  }).catch((error) => {
+                    console.log(error);
+                  });
+            } catch (error) {
+                console.error('Signup Error:', error);
+            }
         }
     }
 
     const validateInputs = () => {
-        console.log(password);
-        console.log(confirmPassword);
-
         if (!password) {
             setError('Password is required');
             return false;

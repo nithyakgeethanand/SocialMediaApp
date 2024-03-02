@@ -2,11 +2,11 @@ import { View, Text } from 'react-native'
 import React from 'react'
 
 const Home = ({route}) => {
-    const {userName} = route.params;
-    console.log(userName);
+    const {name} = route.params;
+    console.log(name);
   return (
     <View>
-      <Text>Welcome {userName}</Text>
+      <Text>Welcome {name}</Text>
     </View>
   )
 }
