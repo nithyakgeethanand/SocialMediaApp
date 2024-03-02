@@ -6,6 +6,7 @@ import Login from './screens/Login';
 import Home from './screens/Home';
 import SignUp from './screens/SignUp';
 import Profile from './screens/Profile';
+import NewFeed from './screens/NewFeed';
 
 const Stack = createStackNavigator();
 
@@ -17,6 +18,7 @@ export default function App() {
         <Stack.Screen name='Home' component={Home} />
         <Stack.Screen name='SignUp' component={SignUp} />
         <Stack.Screen name='Profile' component={Profile} />
+        <Stack.Screen name='NewFeed' component={NewFeed} />
       </Stack.Navigator>
     </NavigationContainer>
   );

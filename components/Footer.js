@@ -19,10 +19,10 @@ const Footer = (props) => {
     return (
         <View style={styles.footer}>
             <TouchableOpacity onPress={navigateToHome} style={styles.icon}>
-                <Entypo name="home" size={24} color="black" />
+                <Entypo name="home" size={30} color="black" />
             </TouchableOpacity>
             <TouchableOpacity onPress={navigateToProfile} style={styles.icon}>
-                <Ionicons name="person" size={24} color="black" />
+                <Ionicons name="person" size={30} color="black" />
             </TouchableOpacity>
         </View>
     )
@@ -37,5 +37,6 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         backgroundColor: '#eee',
         paddingVertical: 10,
+        height:80
     },
 })
