@@ -1,10 +1,8 @@
-import { View, Text, TouchableOpacity, StyleSheet, KeyboardAvoidingView, Platform, Image } from 'react-native'
+import { View, Text, StyleSheet, Image, KeyboardAvoidingView, Platform } from 'react-native'
 import React, { useState } from 'react'
 import { useNavigation } from '@react-navigation/native'
-import { TextInput } from 'react-native-gesture-handler'
 import FormInput from '../components/FormInput'
 import FormButton from '../components/FormButton'
-
 
 const Login = () => {
     const navigation = useNavigation();
@@ -20,9 +18,16 @@ const Login = () => {
         }
     }
 
-    return (
+    const handleSign = () => {
+        navigation.navigate("SignUp");
+    }
 
-        <View style={styles.container}>
+    return (
+        <KeyboardAvoidingView
+            behavior={Platform.OS === "ios" ? "padding" : "height"}
+            keyboardVerticalOffset={80}
+            style={styles.container} >
+            {/* <View style={styles.container}> */}
             <Image source={require("../assets/app-logo.png")} style={styles.logo} resizeMode='center' />
             <Text style={styles.appLabel}>React Social</Text>
             <FormInput
@@ -40,9 +45,9 @@ const Login = () => {
             />
             <Text style={styles.errorText}>{error}</Text>
             <FormButton textValue="Login" onPress={handleLogin} />
-            <FormButton textValue="Sign Up" onPress={handleLogin} />
-        </View>
-
+            <FormButton textValue="Sign Up" onPress={handleSign} />
+            {/* </View> */}
+        </KeyboardAvoidingView>
     )
 }
 
@@ -59,8 +64,8 @@ const styles = StyleSheet.create({
         height: 200,
     },
     appLabel: {
-        fontSize:30,
-        padding:20
+        fontSize: 30,
+        padding: 20
     },
     errorText: {
         color: "red",
