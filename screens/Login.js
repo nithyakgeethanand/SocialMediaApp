@@ -24,6 +24,8 @@ const Login = () => {
                 .catch((error) => {
                     if (error.code === "auth/invalid-email") {
                         setError('Invalid email or password');
+                    } else {
+                        setError('Something went wrong, please try again later');
                     }
                 });
         }
