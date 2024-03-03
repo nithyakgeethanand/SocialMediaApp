@@ -6,9 +6,8 @@ import { Fontisto } from '@expo/vector-icons';
 import { app } from '../firebaseConfig';
 import { screenWidth } from '../constants/dimensions';
 
-const Home = ({ route }) => {
+const Home = () => {
   const navigation = useNavigation();
-  const { name } = route.params;
   const [jsonData, setJsonData] = useState({});
 
   useEffect(() => {
@@ -70,7 +69,7 @@ const Home = ({ route }) => {
         data={Object.values(jsonData)}
         renderItem={renderFeedItem}
       />
-      <Footer userName={name} />
+      <Footer />
     </View>
   );
 

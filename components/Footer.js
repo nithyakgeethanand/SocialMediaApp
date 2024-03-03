@@ -4,16 +4,15 @@ import { Entypo } from '@expo/vector-icons';
 import { Ionicons } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
 
-const Footer = (props) => {
+const Footer = () => {
 
     const navigation = useNavigation();
-    const userName  = props.userName;
     const navigateToHome = () => {
-        navigation.navigate('Home', {name: userName});
+        navigation.navigate('Home');
     };
 
     const navigateToProfile = () => {
-        navigation.navigate('Profile', { name: userName });
+        navigation.navigate('Profile');
     };
 
     return (

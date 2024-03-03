@@ -1,14 +1,22 @@
-import { View, Text, StyleSheet, Button } from 'react-native'
-import React from 'react'
+import { View, Text, StyleSheet } from 'react-native'
+import React, { useState, useEffect } from 'react'
 import { useNavigation } from '@react-navigation/native';
 import { getAuth, signOut } from "firebase/auth";
 import FormButton from '../components/FormButton';
 import Footer from '../components/Footer';
 
-const Profile = ({ route }) => {
+const Profile = () => {
     const navigation = useNavigation();
-    const { name } = route.params;
-    console.log(name);
+    const [userName, setUserName] = useState('Unknown');
+
+    useEffect(() => {
+        const auth = getAuth();
+        const user = auth.currentUser;
+
+        if (user.displayName) {
+            setUserName(user.displayName);
+        }
+    }, []);
 
     const handleSignOut = () => {
         const auth = getAuth();
@@ -21,15 +29,14 @@ const Profile = ({ route }) => {
 
     return (
         <View style={styles.container}>
-
             <View style={styles.content}>
                 <View style={styles.circleIcon}>
-                    <Text style={{ fontSize: 50, fontWeight: "bold", color: "#ffffff" }}>{name.charAt(0).toUpperCase()}</Text>
+                    <Text style={{ fontSize: 50, fontWeight: "bold", color: "#ffffff" }}>{userName.charAt(0).toUpperCase()}</Text>
                 </View>
-                <Text style={styles.userNameText}>Hey, {name}</Text>
+                <Text style={styles.userNameText}>Hey, {userName}</Text>
                 <FormButton textValue='Sign out' onPress={handleSignOut} />
             </View>
-            <Footer userName={name} />
+            <Footer />
         </View>
     )
 }

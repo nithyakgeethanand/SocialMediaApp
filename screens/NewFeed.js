@@ -7,8 +7,7 @@ import { screenWidth, screenHeight } from '../constants/dimensions';
 import { ScrollView, TextInput } from 'react-native-gesture-handler';
 import FormButton from '../components/FormButton';
 
-const NewFeed = ({ route }) => {
-    const name = route.params;
+const NewFeed = () => {
     const [image, setImage] = useState(null);
 
     const pickImage = async () => {
@@ -60,7 +59,7 @@ const NewFeed = ({ route }) => {
 
                
             </ScrollView>
-            <Footer userName={name} />
+            <Footer />
         </KeyboardAvoidingView>
     )
 }
