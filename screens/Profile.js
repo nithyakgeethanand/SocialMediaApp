@@ -21,11 +21,15 @@ const Profile = ({ route }) => {
 
     return (
         <View style={styles.container}>
-            <View  style={styles.content}>
+
+            <View style={styles.content}>
+                <View style={styles.circleIcon}>
+                    <Text style={{ fontSize: 50, fontWeight: "bold", color: "#ffffff" }}>{name.charAt(0).toUpperCase()}</Text>
+                </View>
                 <Text style={styles.userNameText}>Hey, {name}</Text>
                 <FormButton textValue='Sign out' onPress={handleSignOut} />
             </View>
-            <Footer userName={name}/>
+            <Footer userName={name} />
         </View>
     )
 }
@@ -37,15 +41,29 @@ const styles = StyleSheet.create({
         flex: 1,
         flexDirection: 'column',
         paddingTop: 20,
-      },
-      content: {
+    },
+    content: {
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
-      },
-    userNameText: {
-        fontSize : 20,
-        fontWeight: 'bold'
     },
-   
+    userNameText: {
+        fontSize: 20,
+        fontWeight: 'bold',
+        marginTop: 10,
+    },
+    circleIcon: {
+        width: 100,
+        height: 100,
+        borderRadius: 50,
+        backgroundColor: '#59C6F5',
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+    profileIcon: {
+        //marginBottom: 10,
+        justifyContent: "center",
+        alignItems: "center"
+    }
+
 })
